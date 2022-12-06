@@ -16,3 +16,7 @@ func NewCommentsService(repository repository.Comments) *CommentsService {
 func (s *CommentsService) GetAllCommentsByPostId(postId int) ([]models.Comment, error) {
 	return s.repository.GetAllCommentsByPostId(postId)
 }
+
+func (s *CommentsService) CreateComment(comment models.Comment) (int, error) {
+	return s.repository.CreateComment(comment)
+}

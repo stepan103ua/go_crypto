@@ -19,6 +19,7 @@ type Posts interface {
 
 type Comments interface {
 	GetAllCommentsByPostId(postId int) ([]models.Comment, error)
+	CreateComment(comment models.Comment) (int, error)
 }
 
 type Service struct {

@@ -36,3 +36,33 @@ func (h *Handler) getAllCommentsByPostId(c *gin.Context) {
 
 	c.JSON(http.StatusOK, GetCommentsResponse{Data: comments})
 }
+
+func (h *Handler) createComment(c *gin.Context) {
+	var input models.Comment
+
+	err := c.BindJSON(&input)
+
+	if err != nil {
+		newErrorResponse(c, http.StatusBadRequest, err.Error())
+		return
+	}
+
+	userId, err := h.getUserId(c)
+
+	if err != nil {
+		return
+	}
+
+	input.OwnerId = userId
+
+	commentId, err := h.service.CreateComment(input)
+
+	if err != nil {
+		newErrorResponse(c, http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	c.JSON(http.StatusOK, map[string]interface{}{
+		"id": commentId,
+	})
+}
