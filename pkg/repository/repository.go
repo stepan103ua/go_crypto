@@ -17,14 +17,20 @@ type Posts interface {
 	GetAllPostsByUserId(userId int) ([]models.Post, error)
 }
 
+type Comments interface {
+	GetAllCommentsByPostId(postId int) ([]models.Comment, error)
+}
+
 type Repository struct {
 	Authorization
 	Posts
+	Comments
 }
 
 func NewRepository(db *sqlx.DB) *Repository {
 	return &Repository{
 		Authorization: NewAuthPostgres(db),
 		Posts:         NewPostsPostgres(db),
+		Comments:      NewCommentsPostgres(db),
 	}
 }
