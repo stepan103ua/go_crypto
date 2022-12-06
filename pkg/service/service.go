@@ -22,10 +22,15 @@ type Comments interface {
 	CreateComment(comment models.Comment) (int, error)
 }
 
+type Replies interface {
+	CreateReply(reply models.Reply) (int, error)
+}
+
 type Service struct {
 	Authorization
 	Posts
 	Comments
+	Replies
 }
 
 func NewService(repository *repository.Repository) *Service {
@@ -33,5 +38,6 @@ func NewService(repository *repository.Repository) *Service {
 		Authorization: NewAuthService(repository.Authorization),
 		Posts:         NewPostsService(repository.Posts),
 		Comments:      NewCommentsService(repository.Comments),
+		Replies:       NewRepliesService(repository.Replies),
 	}
 }
