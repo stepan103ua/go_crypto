@@ -20,3 +20,7 @@ func (s *CommentsService) GetAllCommentsByPostId(postId int) ([]models.Comment, 
 func (s *CommentsService) CreateComment(comment models.Comment) (int, error) {
 	return s.repository.CreateComment(comment)
 }
+
+func (s *CommentsService) DeleteComment(commentId, userId int) error {
+	return s.repository.DeleteComment(commentId, userId)
+}
