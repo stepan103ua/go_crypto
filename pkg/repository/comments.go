@@ -40,3 +40,11 @@ func (c *CommentsPostgres) CreateComment(comment models.Comment) (int, error) {
 
 	return id, err
 }
+
+func (c *CommentsPostgres) DeleteComment(commentId, userId int) error {
+	query := fmt.Sprintf("DELETE FROM %s WHERE id=$1 AND owner_id=$2", commentsTable)
+
+	_, err := c.db.Exec(query, commentId, userId)
+
+	return err
+}
