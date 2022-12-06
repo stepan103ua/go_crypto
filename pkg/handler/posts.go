@@ -79,12 +79,14 @@ func (h *Handler) getAllPostsByUserId(c *gin.Context) {
 
 	if err != nil {
 		newErrorResponse(c, http.StatusInternalServerError, "Wrong user id")
+		return
 	}
 
 	posts, err := h.service.GetAllPostsByUserId(userIdInt)
 
 	if err != nil {
 		newErrorResponse(c, http.StatusInternalServerError, err.Error())
+		return
 	}
 
 	jsonPosts(c, posts)
