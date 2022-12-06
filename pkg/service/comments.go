@@ -24,3 +24,7 @@ func (s *CommentsService) CreateComment(comment models.Comment) (int, error) {
 func (s *CommentsService) DeleteComment(commentId, userId int) error {
 	return s.repository.DeleteComment(commentId, userId)
 }
+
+func (s *CommentsService) UpdateComment(comment string, commentId, userId int) error {
+	return s.repository.UpdateComment(comment, commentId, userId)
+}

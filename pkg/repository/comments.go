@@ -48,3 +48,11 @@ func (c *CommentsPostgres) DeleteComment(commentId, userId int) error {
 
 	return err
 }
+
+func (c *CommentsPostgres) UpdateComment(comment string, commentId, userId int) error {
+	query := fmt.Sprintf("UPDATE %s SET comment=$1 WHERE id=$2 AND owner_id=$3", commentsTable)
+
+	_, err := c.db.Exec(query, comment, commentId, userId)
+
+	return err
+}

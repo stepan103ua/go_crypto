@@ -12,6 +12,10 @@ type GetCommentsResponse struct {
 	Data []models.Comment `json:"comments"`
 }
 
+type UpdateCommentRequest struct {
+	Comment string `json:"comment" binding:"required"`
+}
+
 func (h *Handler) getAllCommentsByPostId(c *gin.Context) {
 	postId := c.Param("postId")
 
@@ -99,4 +103,47 @@ func (h *Handler) deleteComment(c *gin.Context) {
 		"message": "Successfully deleted",
 	})
 
+}
+
+func (h *Handler) updateComment(c *gin.Context) {
+	var input UpdateCommentRequest
+
+	err := c.BindJSON(&input)
+
+	if err != nil {
+		newErrorResponse(c, http.StatusBadRequest, err.Error())
+		return
+	}
+
+	commentId := c.Param("commentId")
+
+	if commentId == "" {
+		newErrorResponse(c, http.StatusInternalServerError, "Wrong comment id")
+		return
+	}
+
+	commentIdInt, err := strconv.Atoi(commentId)
+
+	if err != nil {
+		newErrorResponse(c, http.StatusInternalServerError, "Wrong comment id")
+		return
+	}
+
+	userId, err := h.getUserId(c)
+
+	if err != nil {
+		newErrorResponse(c, http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	err = h.service.UpdateComment(input.Comment, commentIdInt, userId)
+
+	if err != nil {
+		newErrorResponse(c, http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	c.JSON(http.StatusOK, map[string]interface{}{
+		"message": "Successfully updated",
+	})
 }
