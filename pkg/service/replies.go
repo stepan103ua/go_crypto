@@ -13,6 +13,10 @@ func NewRepliesService(repository repository.Replies) *RepliesService {
 	return &RepliesService{repository: repository}
 }
 
-func (r *RepliesService) CreateReply(reply models.Reply) (int, error) {
-	return r.repository.CreateReply(reply)
+func (s *RepliesService) CreateReply(reply models.Reply) (int, error) {
+	return s.repository.CreateReply(reply)
+}
+
+func (s *RepliesService) GetRepliesByCommentId(commentId int) ([]models.Reply, error) {
+	return s.repository.GetRepliesByCommentId(commentId)
 }
