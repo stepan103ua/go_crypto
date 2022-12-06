@@ -55,3 +55,11 @@ func (p *PostsPostgres) DeletePost(postId, userId int) error {
 
 	return err
 }
+
+func (p *PostsPostgres) UpdatePost(title, description, cryptoCurrency, image_url string, postId, userId int) error {
+	query := fmt.Sprintf("UPDATE %s SET title=$1, description=$2, crypto_currency=$3, image_url=$4 WHERE id=$5 AND owner_id=$6", postsTable)
+
+	_, err := p.db.Exec(query, title, description, cryptoCurrency, image_url, postId, userId)
+
+	return err
+}

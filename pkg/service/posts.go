@@ -28,3 +28,7 @@ func (s *PostsService) GetAllPosts() ([]models.Post, error) {
 func (s *PostsService) DeletePost(postId, userId int) error {
 	return s.repository.DeletePost(postId, userId)
 }
+
+func (s *PostsService) UpdatePost(title, description, cryptoCurrency, image_url string, postId, userId int) error {
+	return s.repository.UpdatePost(title, description, cryptoCurrency, image_url, postId, userId)
+}

@@ -28,6 +28,7 @@ func (h *Handler) InitRoutes() *gin.Engine {
 		{
 			posts.GET("/", h.getAllPosts)
 			posts.DELETE("/:postId", h.deletePost)
+			posts.PUT("/:postId", h.updatePost)
 			posts.GET("/myAll", h.getAllUserPosts)
 			posts.POST("/new", h.createPost)
 			posts.GET("/users/:userId", h.getAllPostsByUserId)
