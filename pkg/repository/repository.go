@@ -22,10 +22,15 @@ type Comments interface {
 	CreateComment(comment models.Comment) (int, error)
 }
 
+type Replies interface {
+	CreateReply(reply models.Reply) (int, error)
+}
+
 type Repository struct {
 	Authorization
 	Posts
 	Comments
+	Replies
 }
 
 func NewRepository(db *sqlx.DB) *Repository {
@@ -33,5 +38,6 @@ func NewRepository(db *sqlx.DB) *Repository {
 		Authorization: NewAuthPostgres(db),
 		Posts:         NewPostsPostgres(db),
 		Comments:      NewCommentsPostgres(db),
+		Replies:       NewRepliesPostgres(db),
 	}
 }

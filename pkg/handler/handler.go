@@ -35,6 +35,8 @@ func (h *Handler) InitRoutes() *gin.Engine {
 		{
 			comments.GET("/posts/:postId", h.getAllCommentsByPostId)
 			comments.POST("/new", h.createComment)
+
+			comments.POST("/:commentId/replies/new", h.createReply)
 		}
 	}
 
