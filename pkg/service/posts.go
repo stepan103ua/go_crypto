@@ -24,3 +24,7 @@ func (s *PostsService) GetAllPostsByUserId(userId int) ([]models.Post, error) {
 func (s *PostsService) GetAllPosts() ([]models.Post, error) {
 	return s.repository.GetAllPosts()
 }
+
+func (s *PostsService) DeletePost(postId, userId int) error {
+	return s.repository.DeletePost(postId, userId)
+}
