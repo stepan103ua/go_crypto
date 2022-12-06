@@ -24,6 +24,7 @@ type Comments interface {
 
 type Replies interface {
 	CreateReply(reply models.Reply) (int, error)
+	GetRepliesByCommentId(commentId int) ([]models.Reply, error)
 }
 
 type Service struct {

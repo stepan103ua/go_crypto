@@ -30,3 +30,13 @@ func (r *RepliesPostgres) CreateReply(reply models.Reply) (int, error) {
 
 	return id, nil
 }
+
+func (r *RepliesPostgres) GetRepliesByCommentId(commentId int) ([]models.Reply, error) {
+	var replies []models.Reply = make([]models.Reply, 0)
+
+	query := fmt.Sprintf("SELECT * FROM %s WHERE comment_id=$1", repliesTable)
+
+	err := r.db.Select(&replies, query, commentId)
+
+	return replies, err
+}
