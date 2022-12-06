@@ -66,3 +66,37 @@ func (h *Handler) createComment(c *gin.Context) {
 		"id": commentId,
 	})
 }
+
+func (h *Handler) deleteComment(c *gin.Context) {
+	commentId := c.Param("commentId")
+
+	if commentId == "" {
+		newErrorResponse(c, http.StatusInternalServerError, "Wrong comment id")
+		return
+	}
+
+	commentIdInt, err := strconv.Atoi(commentId)
+
+	if err != nil {
+		newErrorResponse(c, http.StatusInternalServerError, "Wrong comment id")
+		return
+	}
+
+	userId, err := h.getUserId(c)
+
+	if err != nil {
+		return
+	}
+
+	err = h.service.DeleteComment(commentIdInt, userId)
+
+	if err != nil {
+		newErrorResponse(c, http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	c.JSON(http.StatusOK, map[string]interface{}{
+		"message": "Successfully deleted",
+	})
+
+}

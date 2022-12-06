@@ -34,6 +34,7 @@ func (h *Handler) InitRoutes() *gin.Engine {
 		comments := api.Group("/comments")
 		{
 			comments.GET("/posts/:postId", h.getAllCommentsByPostId)
+			comments.DELETE("/:commentId", h.deleteComment)
 			comments.POST("/new", h.createComment)
 
 			comments.POST("/:commentId/replies/new", h.createReply)
