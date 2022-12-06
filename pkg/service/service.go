@@ -17,14 +17,20 @@ type Posts interface {
 	GetAllPostsByUserId(userId int) ([]models.Post, error)
 }
 
+type Comments interface {
+	GetAllCommentsByPostId(postId int) ([]models.Comment, error)
+}
+
 type Service struct {
 	Authorization
 	Posts
+	Comments
 }
 
 func NewService(repository *repository.Repository) *Service {
 	return &Service{
 		Authorization: NewAuthService(repository.Authorization),
 		Posts:         NewPostsService(repository.Posts),
+		Comments:      NewCommentsService(repository.Comments),
 	}
 }
