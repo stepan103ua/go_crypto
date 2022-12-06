@@ -104,3 +104,32 @@ func jsonPosts(c *gin.Context, posts []models.Post) {
 		GetAllPostsResponse{Data: posts},
 	)
 }
+
+func (h *Handler) deletePost(c *gin.Context) {
+	postId := c.Param("postId")
+
+	if postId == "" {
+		newErrorResponse(c, http.StatusInternalServerError, "Wrong post id")
+		return
+	}
+
+	postIdInt, err := strconv.Atoi(postId)
+
+	if err != nil {
+		newErrorResponse(c, http.StatusInternalServerError, "Wrong post id")
+		return
+	}
+
+	userId, err := h.getUserId(c)
+
+	if err != nil {
+		newErrorResponse(c, http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	h.service.DeletePost(postIdInt, userId)
+
+	c.JSON(http.StatusOK, map[string]interface{}{
+		"message": "Successfully deleted",
+	})
+}

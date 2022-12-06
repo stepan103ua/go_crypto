@@ -47,3 +47,11 @@ func (p *PostsPostgres) GetAllPostsByUserId(userId int) ([]models.Post, error) {
 
 	return posts, err
 }
+
+func (p *PostsPostgres) DeletePost(postId, userId int) error {
+	query := fmt.Sprintf("DELETE FROM %s WHERE id=$1 AND owner_id=$2", postsTable)
+
+	_, err := p.db.Exec(query, postId, userId)
+
+	return err
+}

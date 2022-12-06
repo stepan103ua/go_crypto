@@ -15,6 +15,7 @@ type Posts interface {
 	CreatePost(post models.Post) (int, error)
 	GetAllPosts() ([]models.Post, error)
 	GetAllPostsByUserId(userId int) ([]models.Post, error)
+	DeletePost(postId, userId int) error
 }
 
 type Comments interface {

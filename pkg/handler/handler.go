@@ -27,6 +27,7 @@ func (h *Handler) InitRoutes() *gin.Engine {
 		posts := api.Group("/posts")
 		{
 			posts.GET("/", h.getAllPosts)
+			posts.DELETE("/:postId", h.deletePost)
 			posts.GET("/myAll", h.getAllUserPosts)
 			posts.POST("/new", h.createPost)
 			posts.GET("/users/:userId", h.getAllPostsByUserId)
