@@ -31,6 +31,10 @@ func (h *Handler) InitRoutes() *gin.Engine {
 			posts.POST("/new", h.createPost)
 			posts.GET("/users/:userId", h.getAllPostsByUserId)
 		}
+		comments := api.Group("/comments")
+		{
+			comments.GET("/posts/:postId", h.getAllCommentsByPostId)
+		}
 	}
 
 	return router
