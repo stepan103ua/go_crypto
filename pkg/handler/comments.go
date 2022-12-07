@@ -147,3 +147,30 @@ func (h *Handler) updateComment(c *gin.Context) {
 		"message": "Successfully updated",
 	})
 }
+
+func (h *Handler) getCommentsCountByPostId(c *gin.Context) {
+	postId := c.Param("postId")
+
+	if postId == "" {
+		newErrorResponse(c, http.StatusInternalServerError, "Wrong post id")
+		return
+	}
+
+	postIdInt, err := strconv.Atoi(postId)
+
+	if err != nil {
+		newErrorResponse(c, http.StatusInternalServerError, "Wrong post id")
+		return
+	}
+
+	count, err := h.service.GetCommentsCountByPostId(postIdInt)
+
+	if err != nil {
+		newErrorResponse(c, http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	c.JSON(http.StatusOK, map[string]interface{}{
+		"count": count,
+	})
+}
