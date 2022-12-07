@@ -35,12 +35,19 @@ type Users interface {
 	GetUserById(userId int) (models.UserResponse, error)
 }
 
+type Likes interface {
+	IsLiked(postId, userId int) (bool, error)
+	PutLike(postId, userId int) error
+	Dislike(postId, userId int) error
+}
+
 type Repository struct {
 	Authorization
 	Posts
 	Comments
 	Replies
 	Users
+	Likes
 }
 
 func NewRepository(db *sqlx.DB) *Repository {
@@ -50,5 +57,6 @@ func NewRepository(db *sqlx.DB) *Repository {
 		Comments:      NewCommentsPostgres(db),
 		Replies:       NewRepliesPostgres(db),
 		Users:         NewUsersPostgres(db),
+		Likes:         NewLikesPostgres(db),
 	}
 }

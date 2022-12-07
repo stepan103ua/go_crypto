@@ -11,6 +11,7 @@ const (
 	postsTable    = "posts"
 	commentsTable = "comments"
 	repliesTable  = "replies"
+	likesTable    = "likes"
 )
 
 type Config struct {
