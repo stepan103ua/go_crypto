@@ -28,3 +28,7 @@ func (s *LikesService) ToggleLike(postId, userId int) error {
 
 	return err
 }
+
+func (s *LikesService) GetLikesCountByPostId(postId int) (int, error) {
+	return s.repository.GetLikesCountByPostId(postId)
+}

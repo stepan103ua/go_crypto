@@ -37,6 +37,7 @@ type Users interface {
 
 type Likes interface {
 	ToggleLike(postId, userId int) error
+	GetLikesCountByPostId(postId int) (int, error)
 }
 type Service struct {
 	Authorization

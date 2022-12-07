@@ -39,6 +39,7 @@ type Likes interface {
 	IsLiked(postId, userId int) (bool, error)
 	PutLike(postId, userId int) error
 	Dislike(postId, userId int) error
+	GetLikesCountByPostId(postId int) (int, error)
 }
 
 type Repository struct {

@@ -41,3 +41,30 @@ func (h *Handler) toggleLike(c *gin.Context) {
 	})
 
 }
+
+func (h *Handler) getLikesCountByPostId(c *gin.Context) {
+	postId := c.Param("postId")
+
+	if postId == "" {
+		newErrorResponse(c, http.StatusInternalServerError, "Wrong post id")
+		return
+	}
+
+	postIdInt, err := strconv.Atoi(postId)
+
+	if err != nil {
+		newErrorResponse(c, http.StatusInternalServerError, "Wrong post id")
+		return
+	}
+
+	likes, err := h.service.GetLikesCountByPostId(postIdInt)
+
+	if err != nil {
+		newErrorResponse(c, http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	c.JSON(http.StatusOK, map[string]interface{}{
+		"likes": likes,
+	})
+}

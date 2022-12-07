@@ -38,3 +38,12 @@ func (r *LikesPostgres) Dislike(postId, userId int) error {
 
 	return err
 }
+
+func (r *LikesPostgres) GetLikesCountByPostId(postId int) (int, error) {
+	var likesCount int
+	query := fmt.Sprintf("SELECT count(*) FROM %s WHERE post_id=$1", likesTable)
+
+	err := r.db.Get(&likesCount, query, postId)
+
+	return likesCount, err
+}
