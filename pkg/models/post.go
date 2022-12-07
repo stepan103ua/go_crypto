@@ -10,4 +10,5 @@ type Post struct {
 	CryptoCurrency string    `json:"crypto_currency" binding:"required" db:"crypto_currency"`
 	CreatedAt      time.Time `json:"created_at" db:"created_at"`
 	UserId         int       `json:"owner_id" db:"owner_id"`
+	OwnerUsername  string    `json:"owner_username" db:"name"`
 }

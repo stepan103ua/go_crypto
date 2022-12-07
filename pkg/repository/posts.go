@@ -32,7 +32,7 @@ func (p *PostsPostgres) CreatePost(post models.Post) (int, error) {
 
 func (p *PostsPostgres) GetAllPosts() ([]models.Post, error) {
 	var posts []models.Post
-	query := fmt.Sprintf("SELECT * FROM %s", postsTable)
+	query := fmt.Sprintf("SELECT posts.*, users.name FROM %s JOIN users ON posts.owner_id=users.id WHERE posts.owner_id=$1", postsTable)
 
 	err := p.db.Select(&posts, query)
 
@@ -41,7 +41,7 @@ func (p *PostsPostgres) GetAllPosts() ([]models.Post, error) {
 
 func (p *PostsPostgres) GetAllPostsByUserId(userId int) ([]models.Post, error) {
 	var posts []models.Post
-	query := fmt.Sprintf("SELECT * FROM %s WHERE owner_id=$1", postsTable)
+	query := fmt.Sprintf("SELECT posts.*, users.name FROM %s JOIN users ON posts.owner_id=users.id WHERE posts.owner_id=$1", postsTable)
 
 	err := p.db.Select(&posts, query, userId)
 
