@@ -35,12 +35,16 @@ type Users interface {
 	GetUserById(userId int) (models.UserResponse, error)
 }
 
+type Likes interface {
+	ToggleLike(postId, userId int) error
+}
 type Service struct {
 	Authorization
 	Posts
 	Comments
 	Replies
 	Users
+	Likes
 }
 
 func NewService(repository *repository.Repository) *Service {
@@ -50,5 +54,6 @@ func NewService(repository *repository.Repository) *Service {
 		Comments:      NewCommentsService(repository.Comments),
 		Replies:       NewRepliesService(repository.Replies),
 		Users:         NewUsersService(repository.Users),
+		Likes:         NewLikesService(repository.Likes),
 	}
 }
