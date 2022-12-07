@@ -16,3 +16,30 @@ func NewUsersService(repository repository.Users) *UsersService {
 func (s *UsersService) GetUserById(userId int) (models.UserResponse, error) {
 	return s.repository.GetUserById(userId)
 }
+
+func (s *UsersService) UpdateUser(user models.UserUpdate, userId int) error {
+	if user.Name != "" {
+		err := s.repository.UpdateUsername(user.Name, userId)
+
+		if err != nil {
+			return err
+		}
+	}
+	if user.Email != "" {
+		err := s.repository.UpdateEmail(user.Email, userId)
+
+		if err != nil {
+			return err
+		}
+	}
+	if user.Password != "" {
+		user.Password = generatePasswordHash(user.Password)
+		err := s.repository.UpdatePassword(user.Password, userId)
+
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
+}

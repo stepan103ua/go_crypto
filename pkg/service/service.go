@@ -33,6 +33,7 @@ type Replies interface {
 
 type Users interface {
 	GetUserById(userId int) (models.UserResponse, error)
+	UpdateUser(user models.UserUpdate, userId int) error
 }
 
 type Likes interface {

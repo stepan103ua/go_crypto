@@ -30,11 +30,11 @@ func NewAuthService(repository repository.Authorization) *AuthService {
 }
 
 func (s *AuthService) CreateUser(user models.User) (int, error) {
-	user.Password = s.generatePasswordHash(user.Password)
+	user.Password = generatePasswordHash(user.Password)
 	return s.repository.CreateUser(user)
 }
 
-func (s *AuthService) generatePasswordHash(password string) string {
+func generatePasswordHash(password string) string {
 	hash := sha1.New()
 	hash.Write([]byte(password))
 
@@ -42,7 +42,7 @@ func (s *AuthService) generatePasswordHash(password string) string {
 }
 
 func (s *AuthService) GenerateJWT(email, password string) (string, error) {
-	user, err := s.repository.GetUser(email, s.generatePasswordHash(password))
+	user, err := s.repository.GetUser(email, generatePasswordHash(password))
 
 	if err != nil {
 		return "", err
