@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"crypto_app/pkg/models"
 	"net/http"
 	"strconv"
 
@@ -30,4 +31,31 @@ func (h *Handler) getUserById(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, user)
+}
+
+func (h *Handler) updateUser(c *gin.Context) {
+	var user models.UserUpdate
+
+	err := c.BindJSON(&user)
+
+	if err != nil {
+		newErrorResponse(c, http.StatusBadRequest, err.Error())
+		return
+	}
+
+	userId, err := h.getUserId(c)
+	if err != nil {
+		return
+	}
+
+	err = h.service.UpdateUser(user, userId)
+
+	if err != nil {
+		newErrorResponse(c, http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	c.JSON(http.StatusOK, map[string]interface{}{
+		"message": "ok",
+	})
 }

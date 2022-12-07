@@ -48,6 +48,7 @@ func (h *Handler) InitRoutes() *gin.Engine {
 		users := api.Group("/users")
 		{
 			users.GET("/:userId", h.getUserById)
+			users.PUT("/update", h.updateUser)
 		}
 	}
 
