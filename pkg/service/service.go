@@ -31,11 +31,16 @@ type Replies interface {
 	GetRepliesByCommentId(commentId int) ([]models.Reply, error)
 }
 
+type Users interface {
+	GetUserById(userId int) (models.UserResponse, error)
+}
+
 type Service struct {
 	Authorization
 	Posts
 	Comments
 	Replies
+	Users
 }
 
 func NewService(repository *repository.Repository) *Service {
@@ -44,5 +49,6 @@ func NewService(repository *repository.Repository) *Service {
 		Posts:         NewPostsService(repository.Posts),
 		Comments:      NewCommentsService(repository.Comments),
 		Replies:       NewRepliesService(repository.Replies),
+		Users:         NewUsersService(repository.Users),
 	}
 }
