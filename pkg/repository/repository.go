@@ -33,6 +33,9 @@ type Replies interface {
 
 type Users interface {
 	GetUserById(userId int) (models.UserResponse, error)
+	UpdateUsername(username string, userId int) error
+	UpdateEmail(email string, userId int) error
+	UpdatePassword(password string, userId int) error
 }
 
 type Likes interface {

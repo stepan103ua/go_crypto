@@ -12,3 +12,9 @@ type UserResponse struct {
 	Name  string `json:"name" db:"name"`
 	Email string `json:"email" db:"email"`
 }
+
+type UserUpdate struct {
+	Name     string `json:"name" db:"name"`
+	Email    string `json:"email" db:"email"`
+	Password string `json:"password" db:"password"`
+}
