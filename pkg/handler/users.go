@@ -59,3 +59,19 @@ func (h *Handler) updateUser(c *gin.Context) {
 		"message": "ok",
 	})
 }
+
+func (h *Handler) getAuthenticatedUser(c *gin.Context) {
+	userId, err := h.getUserId(c)
+	if err != nil {
+		return
+	}
+
+	user, err := h.service.GetUserById(userId)
+
+	if err != nil {
+		newErrorResponse(c, http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	c.JSON(http.StatusOK, user)
+}

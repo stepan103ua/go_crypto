@@ -49,6 +49,7 @@ func (h *Handler) InitRoutes() *gin.Engine {
 		{
 			users.GET("/:userId", h.getUserById)
 			users.PUT("/update", h.updateUser)
+			users.GET("/me", h.getAuthenticatedUser)
 		}
 	}
 
