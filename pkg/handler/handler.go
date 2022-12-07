@@ -43,6 +43,10 @@ func (h *Handler) InitRoutes() *gin.Engine {
 			comments.POST("/:commentId/replies/new", h.createReply)
 			comments.GET("/:commentId/replies", h.getRepliesByCommentId)
 		}
+		users := api.Group("/users")
+		{
+			users.GET("/:userId", h.getUserById)
+		}
 	}
 
 	return router
