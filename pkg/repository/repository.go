@@ -31,11 +31,16 @@ type Replies interface {
 	GetRepliesByCommentId(commentId int) ([]models.Reply, error)
 }
 
+type Users interface {
+	GetUserById(userId int) (models.UserResponse, error)
+}
+
 type Repository struct {
 	Authorization
 	Posts
 	Comments
 	Replies
+	Users
 }
 
 func NewRepository(db *sqlx.DB) *Repository {
@@ -44,5 +49,6 @@ func NewRepository(db *sqlx.DB) *Repository {
 		Posts:         NewPostsPostgres(db),
 		Comments:      NewCommentsPostgres(db),
 		Replies:       NewRepliesPostgres(db),
+		Users:         NewUsersPostgres(db),
 	}
 }
