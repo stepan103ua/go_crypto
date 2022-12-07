@@ -34,7 +34,7 @@ func (r *RepliesPostgres) CreateReply(reply models.Reply) (int, error) {
 func (r *RepliesPostgres) GetRepliesByCommentId(commentId int) ([]models.Reply, error) {
 	var replies []models.Reply = make([]models.Reply, 0)
 
-	query := fmt.Sprintf("SELECT * FROM %s WHERE comment_id=$1", repliesTable)
+	query := fmt.Sprintf("SELECT replies.*, users.name FROM %s JOIN users ON replies.owner_id=users.id WHERE comment_id=$1", repliesTable)
 
 	err := r.db.Select(&replies, query, commentId)
 
