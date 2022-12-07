@@ -17,14 +17,22 @@ func (h *Handler) signUp(c *gin.Context) {
 		return
 	}
 
-	id, createUserErr := h.service.CreateUser(input)
+	_, createUserErr := h.service.CreateUser(input)
 
 	if createUserErr != nil {
 		newErrorResponse(c, http.StatusInternalServerError, createUserErr.Error())
 		return
 	}
+
+	token, tokenError := h.service.GenerateJWT(input.Email, input.Password)
+
+	if tokenError != nil {
+		newErrorResponse(c, http.StatusInternalServerError, tokenError.Error())
+		return
+	}
+
 	c.JSON(http.StatusOK, map[string]interface{}{
-		"id": id,
+		"jwt": token,
 	})
 }
 
