@@ -56,3 +56,12 @@ func (c *CommentsPostgres) UpdateComment(comment string, commentId, userId int) 
 
 	return err
 }
+
+func (c *CommentsPostgres) GetCommentsCountByPostId(postId int) (int, error) {
+	var commentsCount int = 0
+	queryComments := "select count(*) + (select count(*) from comments join replies on replies.comment_id=comments.id where comments.post_id=$1) from comments where post_id=$1"
+
+	err := c.db.Get(&commentsCount, queryComments, postId)
+
+	return commentsCount, err
+}
