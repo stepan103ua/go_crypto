@@ -28,3 +28,7 @@ func (s *CommentsService) DeleteComment(commentId, userId int) error {
 func (s *CommentsService) UpdateComment(comment string, commentId, userId int) error {
 	return s.repository.UpdateComment(comment, commentId, userId)
 }
+
+func (s *CommentsService) GetCommentsCountByPostId(postId int) (int, error) {
+	return s.repository.GetCommentsCountByPostId(postId)
+}

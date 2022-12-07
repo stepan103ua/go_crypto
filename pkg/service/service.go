@@ -24,6 +24,7 @@ type Comments interface {
 	CreateComment(comment models.Comment) (int, error)
 	DeleteComment(commentId, userId int) error
 	UpdateComment(comment string, commentId, userId int) error
+	GetCommentsCountByPostId(postId int) (int, error)
 }
 
 type Replies interface {
