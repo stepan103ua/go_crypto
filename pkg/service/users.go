@@ -40,6 +40,13 @@ func (s *UsersService) UpdateUser(user models.UserUpdate, userId int) error {
 			return err
 		}
 	}
+	if user.About != "" {
+		err := s.repository.UpdateAbout(user.About, userId)
+
+		if err != nil {
+			return err
+		}
+	}
 
 	return nil
 }

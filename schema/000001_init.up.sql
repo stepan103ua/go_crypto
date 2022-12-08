@@ -1,8 +1,9 @@
 CREATE TABLE users
 (
   id serial not null unique,
-  name varchar(255) not null,
+  name varchar(255) not null unique,
   email varchar(255) not null unique,
+  about varchar default '',
   password varchar(255) not null
 );
 
