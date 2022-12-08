@@ -47,6 +47,12 @@ type Likes interface {
 	GetLikesCountByPostId(postId int) (int, error)
 }
 
+type Followers interface {
+	Follow(followerId, userId int) error
+	Unfollow(followerId, userId int) error
+	IsFollowing(followerId, userId int) (bool, error)
+}
+
 type Repository struct {
 	Authorization
 	Posts
@@ -54,6 +60,7 @@ type Repository struct {
 	Replies
 	Users
 	Likes
+	Followers
 }
 
 func NewRepository(db *sqlx.DB) *Repository {
@@ -64,5 +71,6 @@ func NewRepository(db *sqlx.DB) *Repository {
 		Replies:       NewRepliesPostgres(db),
 		Users:         NewUsersPostgres(db),
 		Likes:         NewLikesPostgres(db),
+		Followers:     NewFollowersPostgres(db),
 	}
 }
