@@ -46,3 +46,30 @@ func (h *Handler) toggleFollow(c *gin.Context) {
 		"isFollowing": isFollowing,
 	})
 }
+
+func (h *Handler) getFollowersCount(c *gin.Context) {
+	userId := c.Param("userId")
+
+	if userId == "" {
+		newErrorResponse(c, http.StatusInternalServerError, "Wrong user id")
+		return
+	}
+
+	userIdInt, err := strconv.Atoi(userId)
+
+	if err != nil {
+		newErrorResponse(c, http.StatusInternalServerError, "Wrong user id")
+		return
+	}
+
+	count, err := h.service.GetFollowersCount(userIdInt)
+
+	if err != nil {
+		newErrorResponse(c, http.StatusInternalServerError, "Wrong user id")
+		return
+	}
+
+	c.JSON(http.StatusOK, map[string]interface{}{
+		"count": count,
+	})
+}

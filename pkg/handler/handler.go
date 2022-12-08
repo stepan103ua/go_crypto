@@ -52,6 +52,7 @@ func (h *Handler) InitRoutes() *gin.Engine {
 			users.PUT("/update", h.updateUser)
 			users.GET("/me", h.getAuthenticatedUser)
 			users.POST("/:followerId/toggleFollow", h.toggleFollow)
+			users.GET("/:userId/followersCount", h.getFollowersCount)
 		}
 	}
 
