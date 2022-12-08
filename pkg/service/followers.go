@@ -43,3 +43,7 @@ func (s *FollowersService) IsFollowing(followerId, userId int) (bool, error) {
 func (s *FollowersService) GetFollowersCount(userId int) (int, error) {
 	return s.repository.GetFollowersCount(userId)
 }
+
+func (s *FollowersService) GetFollowingCount(userId int) (int, error) {
+	return s.repository.GetFollowingCount(userId)
+}
