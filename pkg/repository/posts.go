@@ -63,3 +63,13 @@ func (p *PostsPostgres) UpdatePost(title, description, cryptoCurrency, image_url
 
 	return err
 }
+
+func (p *PostsPostgres) GetPost(postId int) (models.Post, error) {
+	var post models.Post
+
+	query := fmt.Sprintf("SELECT posts.*, users.name FROM %s JOIN users ON posts.owner_id=users.id WHERE posts.id=$1 LIMIT 1", postsTable)
+
+	err := p.db.Get(&post, query, postId)
+
+	return post, err
+}
