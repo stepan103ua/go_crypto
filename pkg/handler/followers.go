@@ -100,3 +100,36 @@ func (h *Handler) getFollowingCount(c *gin.Context) {
 		"count": count,
 	})
 }
+
+func (h *Handler) isFollowing(c *gin.Context) {
+	followerId := c.Param("userId")
+
+	if followerId == "" {
+		newErrorResponse(c, http.StatusInternalServerError, "Wrong user id")
+		return
+	}
+
+	followerIdInt, err := strconv.Atoi(followerId)
+
+	if err != nil {
+		newErrorResponse(c, http.StatusInternalServerError, "Wrong user id")
+		return
+	}
+
+	userId, err := h.getUserId(c)
+
+	if err != nil {
+		return
+	}
+
+	isFollowing, err := h.service.IsFollowing(followerIdInt, userId)
+
+	if err != nil {
+		newErrorResponse(c, http.StatusInternalServerError, "Wrong user id")
+		return
+	}
+
+	c.JSON(http.StatusOK, map[string]interface{}{
+		"isFollowing": isFollowing,
+	})
+}
