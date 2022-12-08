@@ -42,6 +42,12 @@ type Likes interface {
 	IsLiked(postId, userId int) (bool, error)
 	GetLikesCountByPostId(postId int) (int, error)
 }
+
+type Followers interface {
+	ToggleFollow(followerId, userId int) error
+	IsFollowing(followerId, userId int) (bool, error)
+}
+
 type Service struct {
 	Authorization
 	Posts
@@ -49,6 +55,7 @@ type Service struct {
 	Replies
 	Users
 	Likes
+	Followers
 }
 
 func NewService(repository *repository.Repository) *Service {
@@ -59,5 +66,6 @@ func NewService(repository *repository.Repository) *Service {
 		Replies:       NewRepliesService(repository.Replies),
 		Users:         NewUsersService(repository.Users),
 		Likes:         NewLikesService(repository.Likes),
+		Followers:     NewFollowersService(repository.Followers),
 	}
 }
