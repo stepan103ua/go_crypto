@@ -47,6 +47,7 @@ type Followers interface {
 	ToggleFollow(followerId, userId int) error
 	IsFollowing(followerId, userId int) (bool, error)
 	GetFollowersCount(userId int) (int, error)
+	GetFollowingCount(userId int) (int, error)
 }
 
 type Service struct {
