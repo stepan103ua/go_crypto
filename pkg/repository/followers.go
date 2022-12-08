@@ -47,3 +47,12 @@ func (r *FollowersPostgres) GetFollowersCount(userId int) (int, error) {
 
 	return count, err
 }
+
+func (r *FollowersPostgres) GetFollowingCount(userId int) (int, error) {
+	var count int
+	query := fmt.Sprintf("SELECT count(*) FROM %s WHERE user_id=$1", followersTable)
+
+	err := r.db.Get(&count, query, userId)
+
+	return count, err
+}

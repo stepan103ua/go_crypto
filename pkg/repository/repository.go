@@ -52,6 +52,7 @@ type Followers interface {
 	Unfollow(followerId, userId int) error
 	IsFollowing(followerId, userId int) (bool, error)
 	GetFollowersCount(userId int) (int, error)
+	GetFollowingCount(userId int) (int, error)
 }
 
 type Repository struct {
