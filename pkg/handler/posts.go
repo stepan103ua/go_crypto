@@ -95,7 +95,6 @@ func (h *Handler) getAllPostsByUserId(c *gin.Context) {
 		newErrorResponse(c, http.StatusInternalServerError, err.Error())
 		return
 	}
-
 	jsonPosts(c, posts)
 }
 
@@ -182,4 +181,29 @@ func (h *Handler) updatePost(c *gin.Context) {
 	c.JSON(http.StatusOK, map[string]interface{}{
 		"message": "Successfully updated",
 	})
+}
+
+func (h *Handler) getPost(c *gin.Context) {
+	postId := c.Param("postId")
+
+	if postId == "" {
+		newErrorResponse(c, http.StatusInternalServerError, "Wrong post id")
+		return
+	}
+
+	postIdInt, err := strconv.Atoi(postId)
+
+	if err != nil {
+		newErrorResponse(c, http.StatusInternalServerError, "Wrong post id")
+		return
+	}
+
+	post, err := h.service.GetPost(postIdInt)
+
+	if err != nil {
+		newErrorResponse(c, http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	c.JSON(http.StatusOK, post)
 }

@@ -32,3 +32,7 @@ func (s *PostsService) DeletePost(postId, userId int) error {
 func (s *PostsService) UpdatePost(title, description, cryptoCurrency, image_url string, postId, userId int) error {
 	return s.repository.UpdatePost(title, description, cryptoCurrency, image_url, postId, userId)
 }
+
+func (s *PostsService) GetPost(postId int) (models.Post, error) {
+	return s.repository.GetPost(postId)
+}

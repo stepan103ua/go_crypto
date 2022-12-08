@@ -15,6 +15,7 @@ type Posts interface {
 	CreatePost(post models.Post) (int, error)
 	GetAllPosts() ([]models.Post, error)
 	GetAllPostsByUserId(userId int) ([]models.Post, error)
+	GetPost(postId int) (models.Post, error)
 	DeletePost(postId, userId int) error
 	UpdatePost(title, description, cryptoCurrency, image_url string, postId, userId int) error
 }
