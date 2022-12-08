@@ -57,6 +57,13 @@ func (h *Handler) getLikesCountByPostId(c *gin.Context) {
 		return
 	}
 
+	userId, err := h.getUserId(c)
+
+	if err != nil {
+		newErrorResponse(c, http.StatusInternalServerError, err.Error())
+		return
+	}
+
 	likes, err := h.service.GetLikesCountByPostId(postIdInt)
 
 	if err != nil {
@@ -64,7 +71,15 @@ func (h *Handler) getLikesCountByPostId(c *gin.Context) {
 		return
 	}
 
+	isLiked, err := h.service.IsLiked(postIdInt, userId)
+
+	if err != nil {
+		newErrorResponse(c, http.StatusInternalServerError, err.Error())
+		return
+	}
+
 	c.JSON(http.StatusOK, map[string]interface{}{
-		"likes": likes,
+		"likes":   likes,
+		"isLiked": isLiked,
 	})
 }
