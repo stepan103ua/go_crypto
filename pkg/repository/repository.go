@@ -37,6 +37,7 @@ type Users interface {
 	UpdateUsername(username string, userId int) error
 	UpdateEmail(email string, userId int) error
 	UpdatePassword(password string, userId int) error
+	UpdateAbout(about string, userId int) error
 }
 
 type Likes interface {
