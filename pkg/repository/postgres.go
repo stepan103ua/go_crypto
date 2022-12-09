@@ -13,6 +13,7 @@ const (
 	repliesTable   = "replies"
 	likesTable     = "likes"
 	followersTable = "followers"
+	watchlistTable = "watchlist"
 )
 
 type Config struct {
