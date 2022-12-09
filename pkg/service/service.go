@@ -51,6 +51,10 @@ type Followers interface {
 	GetFollowingCount(userId int) (int, error)
 }
 
+type Watchlists interface {
+	CreateWatchlist(watchlist models.Watchlist) error
+}
+
 type Service struct {
 	Authorization
 	Posts
@@ -59,6 +63,7 @@ type Service struct {
 	Users
 	Likes
 	Followers
+	Watchlists
 }
 
 func NewService(repository *repository.Repository) *Service {
@@ -70,5 +75,6 @@ func NewService(repository *repository.Repository) *Service {
 		Users:         NewUsersService(repository.Users),
 		Likes:         NewLikesService(repository.Likes),
 		Followers:     NewFollowersService(repository.Followers),
+		Watchlists:    NewWatchlistsService(repository.Watchlists),
 	}
 }
