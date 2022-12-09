@@ -22,3 +22,13 @@ func (r *WatchlistsPostgres) CreateWatchlist(watchlist models.Watchlist) error {
 
 	return err
 }
+
+func (r *WatchlistsPostgres) GetAllUserWatchlists(userId int) ([]models.Watchlist, error) {
+	var allWatchlists []models.Watchlist
+
+	query := fmt.Sprintf("SELECT * FROM %s WHERE user_id=$1", watchlistTable)
+
+	err := r.db.Select(&allWatchlists, query, userId)
+
+	return allWatchlists, err
+}
