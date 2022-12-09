@@ -59,6 +59,7 @@ func (h *Handler) InitRoutes() *gin.Engine {
 		}
 		watchlists := api.Group("/watchlists")
 		{
+			watchlists.GET("/", h.getAllUserWatchlists)
 			watchlists.POST("/new", h.createWatchlist)
 		}
 	}
