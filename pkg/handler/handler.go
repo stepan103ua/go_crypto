@@ -57,6 +57,10 @@ func (h *Handler) InitRoutes() *gin.Engine {
 			users.GET("/:userId/followingCount", h.getFollowingCount)
 			users.GET("/:userId/isFollowing", h.isFollowing)
 		}
+		watchlists := api.Group("/watchlists")
+		{
+			watchlists.POST("/new", h.createWatchlist)
+		}
 	}
 
 	return router

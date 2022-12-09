@@ -56,6 +56,10 @@ type Followers interface {
 	GetFollowingCount(userId int) (int, error)
 }
 
+type Watchlists interface {
+	CreateWatchlist(watchlist models.Watchlist) error
+}
+
 type Repository struct {
 	Authorization
 	Posts
@@ -64,6 +68,7 @@ type Repository struct {
 	Users
 	Likes
 	Followers
+	Watchlists
 }
 
 func NewRepository(db *sqlx.DB) *Repository {
@@ -75,5 +80,6 @@ func NewRepository(db *sqlx.DB) *Repository {
 		Users:         NewUsersPostgres(db),
 		Likes:         NewLikesPostgres(db),
 		Followers:     NewFollowersPostgres(db),
+		Watchlists:    NewWatchlistsPostgres(db),
 	}
 }
