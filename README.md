@@ -1,4 +1,4 @@
-# GO Crypty
+# GO Crypto
 
 ## Sign Up:
 Method: __POST__
