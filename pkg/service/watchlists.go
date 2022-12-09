@@ -16,3 +16,7 @@ func NewWatchlistsService(repository repository.Watchlists) *WatchlistsService {
 func (s *WatchlistsService) CreateWatchlist(watchlist models.Watchlist) error {
 	return s.repository.CreateWatchlist(watchlist)
 }
+
+func (s *WatchlistsService) GetAllUserWatchlists(userId int) ([]models.Watchlist, error) {
+	return s.repository.GetAllUserWatchlists(userId)
+}

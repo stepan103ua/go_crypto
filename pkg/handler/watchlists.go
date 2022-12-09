@@ -37,3 +37,21 @@ func (h *Handler) createWatchlist(c *gin.Context) {
 		"message": "Successfully created",
 	})
 }
+
+func (h *Handler) getAllUserWatchlists(c *gin.Context) {
+	userId, err := h.getUserId(c)
+
+	if err != nil {
+		newErrorResponse(c, http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	userWatchlists, err := h.service.GetAllUserWatchlists(userId)
+
+	if err != nil {
+		newErrorResponse(c, http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	c.JSON(http.StatusOK, userWatchlists)
+}

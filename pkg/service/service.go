@@ -53,6 +53,7 @@ type Followers interface {
 
 type Watchlists interface {
 	CreateWatchlist(watchlist models.Watchlist) error
+	GetAllUserWatchlists(userId int) ([]models.Watchlist, error)
 }
 
 type Service struct {
